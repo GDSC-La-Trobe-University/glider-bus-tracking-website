@@ -17,4 +17,8 @@ The primary purpose of the Glider-Bus-Tracking-Website is to streamline the proc
 4. Ensure data accuracy and timely updates through seamless integration with the Glider bus tracking system.
 5. Collect and analyze user feedback to continually improve the website's functionality and user experience.
 
+### Understanding the Code:
+
+### Team Members & Roles:
+
 *Developed & Owned by GDSC La Trobe University*
