@@ -11,6 +11,10 @@ The primary purpose of the Glider-Bus-Tracking-Website is to streamline the proc
 
 ### Objectives
 
-
+1. Implement an intuitive and interactive map interface displaying real-time Glider bus locations and routes.
+2. Develop a responsive and user-friendly platform accessible across various devices and operating systems.
+3. Integrate a reliable notification system to update users about any changes in bus schedules, routes, or unforeseen delays.
+4. Ensure data accuracy and timely updates through seamless integration with the Glider bus tracking system.
+5. Collect and analyze user feedback to continually improve the website's functionality and user experience.
 
 *Developed & Owned by GDSC La Trobe University*
