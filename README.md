@@ -3,14 +3,13 @@ A Website dedicated to help students locate and track the Glider bus services of
 
 ### Description of Project
 
-### Purpose:
+This project aims to create a user-friendly web application that enables students to effortlessly access real-time information about Glider bus locations, schedules, and routes. By providing accurate and up-to-date tracking data, the website seeks to enhance the commuting experience for students and faculty members at La Trobe University.
 
-### Objectives:
-
-
+### Purpose
 
 
+### Objectives
 
 
-### Developed & Owned by GDSC La Trobe University
 
+*Developed & Owned by GDSC La Trobe University*
