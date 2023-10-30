@@ -7,6 +7,7 @@ This project aims to create a user-friendly web application that enables student
 
 ### Purpose
 
+The primary purpose of the Glider-Bus-Tracking-Website is to streamline the process of locating and tracking the Glider bus services for the convenience of the university community. This website intends to eliminate uncertainties related to bus arrival times and routes, thus promoting efficient time management and reducing the hassle of commuting for the students and staff.
 
 ### Objectives
 
