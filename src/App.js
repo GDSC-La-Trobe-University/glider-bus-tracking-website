@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom";
+import { ForYouPage } from "./components/ForYou";
+import { Nav } from "./components/Nav";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="flex flex-col min-h-screen">
+      {/* <header className="bg-gray-800 text-white text-2xl p-4">
+        <h1>News App</h1>
+      </header> */}
+      <div className="flex-1">
+        <Routes>
+          <Route path="/" element={<ForYouPage />} />
+          <Route path="*" element={<div>Not Found</div>} />
+        </Routes>
+      </div>
+      <Nav />
     </div>
   );
 }
