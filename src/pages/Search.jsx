@@ -5,4 +5,4 @@ export function SearchPage() {
 
         </div>
     );
-}s
+}
