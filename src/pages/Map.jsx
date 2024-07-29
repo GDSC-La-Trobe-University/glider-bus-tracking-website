@@ -4,7 +4,6 @@ import 'leaflet/dist/leaflet.css';
 import { busStop } from '../data/busStop-data';
 
 export function MapPage() {
-    const latrobeUniversityPosition = [-37.724, 144.990];
 
     const defaultIcon = L.icon({
         iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
