@@ -1,48 +1,31 @@
-import { useState, useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, Polyline } from "react-leaflet";
 import L from "leaflet";
 import 'leaflet/dist/leaflet.css';
+import { busStop } from '../data/busStop-data';
 
 export function MapPage() {
-    const [position, setPosition] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [permissionDenied, setPermissionDenied] = useState(false);
 
-    useEffect(() => {
-        const handleGeolocation = (position) => {
-            const { latitude, longitude } = position.coords;
-            setPosition([latitude, longitude]);
-            setLoading(false);
-        };
+    const defaultIcon = L.icon({
+        iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+    });
 
-        const handleGeolocationError = (error) => {
-            console.error(error);
-            setPermissionDenied(true);
-            setLoading(false);
-        };
+    // Extract detailed route coordinates from bus stops 1 to 5
+    const detailedRouteCoordinates = busStop.map(stop => [stop.latitude, stop.longitude]);
 
-        navigator.geolocation.getCurrentPosition(
-            handleGeolocation,
-            handleGeolocationError,
-            { timeout: 10000 }
-        );
-    }, []);
-
-    const latrobeUniversityPosition = [-37.724, 144.990];
+    // Create bounds based on bus stops 1 to 5
+    const bounds = L.latLngBounds(detailedRouteCoordinates);
 
     return (
         <div className="relative flex flex-col h-[89.5vh]">
-            {/* Loading animation */}
-            {loading && (
-                <div className="absolute inset-0 flex justify-center items-center bg-white z-10">
-                    <div className="w-16 h-16 border-t-4 border-blue-500 border-solid rounded-full animate-spin"></div>
-                </div>
-            )}
-
-            {/* Map container */}
             <MapContainer
-                center={permissionDenied ? latrobeUniversityPosition : (position || latrobeUniversityPosition)}
-                zoom={13}
+                bounds={bounds}
+                zoom={15}
+                minZoom={13}
+                maxZoom={17}
+                maxBounds={bounds}
+                maxBoundsViscosity={1.0}
+                zoomControl={false}
                 style={{ height: "calc(100vh - 6rem)", width: "100%" }}
                 className="flex-1 z-0"
             >
@@ -50,22 +33,17 @@ export function MapPage() {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 />
-                <Marker
-                    position={permissionDenied ? latrobeUniversityPosition : (position || latrobeUniversityPosition)}
-                    icon={L.icon({ iconUrl: 'path-to-your-icon.png' })}
-                >
-                    <Popup>
-                        {permissionDenied ? 'La Trobe University' : 'Your location'}
-                    </Popup>
-                </Marker>
+                {busStop.map((stop) => (
+                    <Marker
+                        key={stop.id}
+                        position={[stop.latitude, stop.longitude]}
+                        icon={defaultIcon}
+                    >
+                        <Popup>{stop.name}</Popup>
+                    </Marker>
+                ))}
+                <Polyline positions={detailedRouteCoordinates} color="blue" />
             </MapContainer>
-
-            {/* Permission request message */}
-            {!position && !loading && !permissionDenied && (
-                <div className="absolute inset-0 flex flex-col justify-center items-center bg-white z-10">
-                    <p className="text-lg mb-4">We need your location to show it on the map. Please allow location access.</p>
-                </div>
-            )}
         </div>
     );
 }
