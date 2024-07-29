@@ -68,7 +68,7 @@ export function SettingsPage() {
             )}
 
             {/* Copyright */}
-            <div className="text-center text-gray-500 mb-24">
+            <div className="text-center text-gray-500 mb-32">
                 <div>© Google Developer Club La Trobe University</div>
             </div>
         </div>
