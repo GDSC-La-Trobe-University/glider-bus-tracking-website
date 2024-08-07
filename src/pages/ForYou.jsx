@@ -1,34 +1,33 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendar } from "@fortawesome/free-solid-svg-icons";
-import { useState, useEffect } from "react";
+import { faCalendar, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { busStop } from "../data/busStop-data";
-import { loadStarredState } from "../utils/storage";
-import { BusStopItem } from "./BusStopItem";
+import { loadStarredState } from "../utils/dataLoader";
+import { BusStopItem } from "../components/BusStopItem";
 
 export function ForYouPage() {
-  const [starred, setStarred] = useState(loadStarredState);
-
-  useEffect(() => {
-    localStorage.setItem("starredState", JSON.stringify(starred));
-  }, [starred]);
-
-  const toggleStarred = (id) => {
-    setStarred((prevStarred) => ({
-      ...prevStarred,
-      [id]: !prevStarred[id],
-    }));
-    console.log(starred);
-  };
-
+  const navigate = useNavigate();
+  const starred = loadStarredState();
+  const sortedBusStops = [...busStop]
+    .filter((bus) => starred[bus.id] === true) // Filter only those with starred state true
+    .sort((a, b) => {
+      const aStarred = starred[a.id];
+      const bStarred = starred[b.id];
+      return bStarred - aStarred; // bStarred first (true > false)
+    });
   const formattedDate = format(new Date(), "EEEE, do MMMM yyyy");
-
-  // Sort bus stops with starred items first
-  const sortedBusStops = [...busStop].sort((a, b) => {
-    const aStarred = starred[a.id];
-    const bStarred = starred[b.id];
-    return bStarred - aStarred; // bStarred first (true > false)
-  });
+  const EmptyStateAddButton = (
+    <div className="mt-36 flex flex-col items-center justify-center h-full text-gray-500">
+      <p>Click to add Favourites</p>
+      <button
+        className="mt-1 px-3 py-1 border border-gray-500 rounded-md bg-transparent text-gray-500 flex items-center text-sm"
+        onClick={() => navigate("/search")}
+      >
+        <FontAwesomeIcon icon={faPlus} className="mr-1" /> Add
+      </button>
+    </div>
+  );
 
   return (
     <div className="App">
@@ -39,18 +38,15 @@ export function ForYouPage() {
           <span>{formattedDate}</span>
         </div>
       </header>
-
-      <div className="p-5">
-        {sortedBusStops.map((bus) => (
-          <BusStopItem
-            key={bus.id}
-            bus={bus}
-            starred={starred}
-            handleToggleStarred={toggleStarred}
-            clickable={true}
-          />
-        ))}
-      </div>
+      {sortedBusStops.length === 0 ? (
+        EmptyStateAddButton
+      ) : (
+        <div className="p-5">
+          {sortedBusStops.map((bus) => (
+            <BusStopItem key={bus.id} bus={bus} clickable={false} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
