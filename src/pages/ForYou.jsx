@@ -23,6 +23,7 @@ export function ForYouPage() {
       <button
         className="mt-1 px-3 py-1 border border-gray-500 rounded-md bg-transparent text-gray-500 flex items-center text-sm"
         onClick={() => navigate("/search")}
+        data-testid="add-button"
       >
         <FontAwesomeIcon icon={faPlus} className="mr-1" /> Add
       </button>

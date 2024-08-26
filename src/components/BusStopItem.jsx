@@ -30,7 +30,11 @@ export function BusStopItem({ bus, starred, handleToggleStarred, clickable }) {
         </div>
       </div>
       {clickable && (
-        <div onClick={() => handleToggleStarred(bus.id)}>
+        <div
+          role="button"
+          onClick={() => handleToggleStarred(bus.id)}
+          className="clickable-star"
+        >
           <FontAwesomeIcon
             icon={faStar}
             className={starred[bus.id] ? "text-yellow-500" : "text-gray-400"}

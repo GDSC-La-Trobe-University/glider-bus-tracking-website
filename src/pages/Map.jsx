@@ -15,6 +15,9 @@ export function MapPage() {
       "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
     shadowUrl:
       "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
+    iconSize: [28, 28],
+    iconAnchor: [14, 28],
+    popupAnchor: [0, -28],
   });
 
   // Extract detailed route coordinates from bus stops 1 to 5
@@ -25,9 +28,8 @@ export function MapPage() {
 
   // Create bounds based on bus stops 1 to 5
   const bounds = L.latLngBounds(detailedRouteCoordinates);
-
   return (
-    <div className="relative flex flex-col h-[89.5vh]">
+    <div>
       <MapContainer
         bounds={bounds}
         zoom={15}
@@ -36,7 +38,7 @@ export function MapPage() {
         maxBounds={bounds}
         maxBoundsViscosity={1.0}
         zoomControl={false}
-        style={{ height: "calc(100vh - 6rem)", width: "100%" }}
+        style={{ height: "calc(100vh - 4rem)", width: "100%" }}
         className="flex-1 z-0"
       >
         <TileLayer
