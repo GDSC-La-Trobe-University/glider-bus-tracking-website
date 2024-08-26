@@ -18,7 +18,6 @@ export function SearchPage() {
       ...prevStarred,
       [id]: !prevStarred[id],
     }));
-    console.log(starred);
   };
 
   const formattedDate = format(new Date(), "EEEE, do MMMM yyyy");
